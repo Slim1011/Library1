@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-
+using General.Models;
 
 namespace Library1
 {
@@ -29,15 +29,15 @@ namespace Library1
         {
             services.AddControllersWithViews();
             
-            services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["ConnectionStringss:Default"]));
-           // services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["MySQLConnectionStrings:Default1"]));
-           // services.Configure<MySqlConfiguration>(Configuration.GetSection("MySQLConnectionStrings"));
+            // services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["MySQLConnectionStrings:Default1"]));
+            // services.Configure<MySqlConfiguration>(Configuration.GetSection("MySQLConnectionStrings"));
             //services.AddDbContext<LibraryDbContext>();
-           
 
-            
-            
-             //services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.Configure<MySqlConfigurationModel>(Configuration.GetSection("MySQLConnectionStrings"));
+            services.AddDbContext<LibraryDbContext>();
+
+
+            //services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
             // services.AddScoped<DbContext, LibraryDbContext>();
             // services.AddScoped<IStudentService, StudentService>();
 
