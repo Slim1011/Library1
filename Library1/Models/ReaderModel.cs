@@ -10,6 +10,7 @@ namespace Library.Models
     public class ReaderModel
     {
         [Required]
+        [Key]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
