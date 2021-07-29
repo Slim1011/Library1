@@ -23,7 +23,7 @@ namespace Library.Controllers
         [HttpGet]
         public IActionResult GetBooks()
         {
-            var books = _booksDbContext.Books;
+            var books = _booksDbContext.Books.ToList();
             if (books == null)
             {
                 return NotFound("No records found");

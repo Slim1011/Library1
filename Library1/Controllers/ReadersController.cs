@@ -2,10 +2,7 @@
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,24 +19,24 @@ namespace Library.Controllers
         }
         // GET: api/<ReaderController>
         [HttpGet]
-     
-             public IActionResult GetReaders()
+
+        public IActionResult GetReaders()
+        {
+            var readers = _readersDbContext.Readers.Include(r => r.Books).ToList();
+            if (readers == null)
             {
-                var readers = _readersDbContext.Readers.Include("Books");
-                if (readers==null)
-                {
-                    return NotFound("No records found");
-                }
-                     return Ok(readers);
+                return NotFound("No records found");
             }
-       
+            return Ok(readers);
+        }
+
 
         // GET api/<ReaderController>/5
         [HttpGet("{id}")]
         public IActionResult GetReaderById(int id)
         {
-           var reader = _readersDbContext.Readers.Include("Books").FirstOrDefault(r => r.Id == id);
-            if (reader==null)
+            var reader = _readersDbContext.Readers.Include(r => r.Books).FirstOrDefault(r => r.Id == id);
+            if (reader == null)
             {
                 return NotFound("No records found agains this id");
             }
@@ -59,8 +56,8 @@ namespace Library.Controllers
         [HttpPut("{id}")]
         public IActionResult PutReader(int id, ReaderModel readerModel)
         {
-          var reader =  _readersDbContext.Readers.Find(id);
-            if (reader==null)
+            var reader = _readersDbContext.Readers.Find(id);
+            if (reader == null)
             {
                 return NotFound("No records found agains this id");
             }
@@ -75,8 +72,8 @@ namespace Library.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteReader(int id)
         {
-           var reader = _readersDbContext.Readers.Find(id);
-            if (reader==null)
+            var reader = _readersDbContext.Readers.Find(id);
+            if (reader == null)
             {
                 return NotFound("Reader not found");
             }

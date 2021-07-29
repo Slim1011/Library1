@@ -13,10 +13,9 @@ namespace Library.Data.DbContext
             optionsBuilder.UseMySQL(mySqlSettings);
         }
 
-        public LibraryDbContext(IOptions<MySqlConfigurationModel> config)
+        public LibraryDbContext()
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+          
         }
 
         public DbSet<BookModel> Books { get; set; }

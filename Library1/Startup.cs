@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-using General.Models;
+
 
 namespace Library1
 {
@@ -33,7 +33,7 @@ namespace Library1
             // services.Configure<MySqlConfiguration>(Configuration.GetSection("MySQLConnectionStrings"));
             //services.AddDbContext<LibraryDbContext>();
 
-            services.Configure<MySqlConfigurationModel>(Configuration.GetSection("MySQLConnectionStrings"));
+            services.Configure<MySqlConfiguration>(Configuration.GetSection("MySQLConnectionStrings"));
             services.AddDbContext<LibraryDbContext>();
 
 
