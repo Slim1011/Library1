@@ -1,19 +1,16 @@
-﻿using Library1.Models;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Library.Models
+namespace Library1.Models
 {
-    public class BookModel
+    public class AuthorModel
     {
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; }
-        
-
-        public List<Book_CategoryModel> Books_CategoriesModel {  get  ; set; }
+        public string Author { get; set; }
         public List<Book_AuthorModel> Books_AuthorsModel { get; set; }
     }
-
-    
 }

@@ -35,6 +35,7 @@ namespace Library1
 
             services.Configure<MySqlConfiguration>(Configuration.GetSection("MySQLConnectionStrings"));
             services.AddDbContext<LibraryDbContext>();
+            services.AddAutoMapper(this.GetType().Assembly);
 
 
             //services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));

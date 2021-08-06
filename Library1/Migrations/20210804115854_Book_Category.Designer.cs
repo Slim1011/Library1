@@ -3,14 +3,16 @@ using System;
 using Library.Data.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library1.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    partial class LibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210804115854_Book_Category")]
+    partial class Book_Category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,6 +24,9 @@ namespace Library1.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("Author")
+                        .HasColumnType("text");
 
                     b.Property<int?>("ReaderModelId")
                         .HasColumnType("int");
@@ -57,41 +62,6 @@ namespace Library1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Readers");
-                });
-
-            modelBuilder.Entity("Library1.Models.AuthorModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Author")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Authors");
-                });
-
-            modelBuilder.Entity("Library1.Models.Book_AuthorModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("Books_Authors");
                 });
 
             modelBuilder.Entity("Library1.Models.Book_CategoryModel", b =>
@@ -136,31 +106,16 @@ namespace Library1.Migrations
                         .HasForeignKey("ReaderModelId");
                 });
 
-            modelBuilder.Entity("Library1.Models.Book_AuthorModel", b =>
-                {
-                    b.HasOne("Library1.Models.AuthorModel", "AuthorModel")
-                        .WithMany("Books_AuthorsModel")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Library.Models.BookModel", "BookModel")
-                        .WithMany("Books_AuthorsModel")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Library1.Models.Book_CategoryModel", b =>
                 {
                     b.HasOne("Library.Models.BookModel", "BookModel")
-                        .WithMany("Books_CategoriesModel")
+                        .WithMany("Book_CategoriesModel")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Library1.Models.CategoryModel", "CategoryModel")
-                        .WithMany("Books_CategoriesModel")
+                        .WithMany("Book_CategoriesModel")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Library.Models;
 using Library.Data.DbContext;
+using AutoMapper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,16 +16,19 @@ namespace Library.Controllers
     public class BooksController : ControllerBase
     {
        private LibraryDbContext _booksDbContext ;
-        public BooksController(LibraryDbContext booksDbContext)
+        private readonly IMapper _mapper;
+
+        public BooksController(LibraryDbContext booksDbContext, IMapper mapper)
         {
             _booksDbContext = booksDbContext;
+            _mapper = mapper
         }
         // GET: api/<BooksController>
         [HttpGet]
         public IActionResult GetBooks()
         {
             var books = _booksDbContext.Books.ToList();
-            if (books == null)
+            if (books.Count ==0)
             {
                 return NotFound("No records found");
             }
@@ -62,8 +66,9 @@ namespace Library.Controllers
                 return NotFound("No records found agains this id");
             }
             book.Title = bookModel.Title;
-            book.Author = bookModel.Author;
-            book.Category = bookModel.Category;
+
+            //book.Author = bookModel.Author;
+            //book.Category = bookModel.Category;
             _booksDbContext.SaveChanges();
             return Ok("Record updated successfully");
         }
