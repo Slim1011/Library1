@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Library.Models;
 using Library.Data.DbContext;
 using AutoMapper;
+using Library1.Service;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,14 +23,15 @@ namespace Library.Controllers
         public BooksController(LibraryDbContext booksDbContext, IMapper mapper)
         {
             _booksDbContext = booksDbContext;
-            _mapper = mapper
+            _mapper = mapper;
         }
         // GET: api/<BooksController>
         [HttpGet]
         public IActionResult GetBooks()
         {
             var books = _booksDbContext.Books.ToList();
-            if (books.Count ==0)
+            //var bookModels = _mapper.Map<BookModelView>(books);
+            if (books.Count == 0)
             {
                 return NotFound("No records found");
             }
@@ -39,12 +42,15 @@ namespace Library.Controllers
         [HttpGet("{id}")]
         public IActionResult GetBookById(int id)
         {
+
+            
             var book = _booksDbContext.Books.FirstOrDefault(b => b.Id == id);
-            if (book == null)
+            var bookModel = _mapper.Map<BookModelView>(book);
+            if (bookModel == null)
             {
                 return NotFound("No records found agains this id");
             }
-            return Ok(book);
+            return Ok(bookModel);
         }
 
         // POST api/<BooksController>

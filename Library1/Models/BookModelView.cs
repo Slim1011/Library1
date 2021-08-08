@@ -7,6 +7,7 @@ namespace Library1.Service
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        
         public ICollection<AuthorModel> Authors { get; set; }
         public ICollection<CategoryModel> Categories { get; set; }
     }

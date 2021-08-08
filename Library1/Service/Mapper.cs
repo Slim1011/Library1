@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Library.Models;
+using Library1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace Library1.Service
     {
         public Mapper()
         {
-            CreateMap<BookModel, BookModelView>();
-                //.ForMember(src => )
-                //;
+            CreateMap<BookModel, BookModelView>()
+                .ForMember(dto => dto.Authors, opt => opt.MapFrom(x => x.Books_AuthorsModel))
+                .ForMember(dto => dto.Categories, opt => opt.MapFrom(x => x.Books_CategoriesModel)); 
+           // CreateMap<AuthorModel, BookModelView>();
+                
         }
     }
 }

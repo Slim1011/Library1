@@ -16,7 +16,15 @@ namespace Library1.Service
             _libraryDbContext = libraryDbContext;
         }
 
-        BookModel bookModel = new BookModel();
+        //public BookModelView GetBookById(int id)
+        //{
+        //    var bookWithAuthors = _libraryDbContext.Books.Where(n => n.Id == id).Select(BookModel => new BookModelView()
+        //    {
+        //        Title = book.Title;
+        //    Authors = 
+
+        //    }
+        //}
        
 
     }
