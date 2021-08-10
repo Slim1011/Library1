@@ -1,5 +1,6 @@
 ﻿using Library.Data.DbContext;
 using Library.Models;
+using Library1.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace Library.Controllers
     public class ReadersController : ControllerBase
     {
         private LibraryDbContext _readersDbContext;
-        public ReadersController(LibraryDbContext readersDbContext)
+        private IReaderService _readerService;
+        public ReadersController(LibraryDbContext readersDbContext, IReaderService readerservice)
         {
             _readersDbContext = readersDbContext;
+            _readerService = readerservice;
         }
         // GET: api/<ReaderController>
         [HttpGet]
@@ -35,7 +38,7 @@ namespace Library.Controllers
         [HttpGet("{id}")]
         public IActionResult GetReaderById(int id)
         {
-            var reader = _readersDbContext.Readers.Include(r => r.Books).FirstOrDefault(r => r.Id == id);
+            var reader = _readerService.GetReaderWithBookById(id);
             if (reader == null)
             {
                 return NotFound("No records found agains this id");

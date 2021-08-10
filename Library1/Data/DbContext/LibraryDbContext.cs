@@ -1,6 +1,7 @@
 ﻿using General.Models;
 using Library.Models;
 using Library1.Models;
+using Library1.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -43,8 +44,7 @@ namespace Library.Data.DbContext
                .HasForeignKey(ai => ai.AuthorId);
         }
 
-       
-
+      
 
         public DbSet<BookModel> Books { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
@@ -52,5 +52,6 @@ namespace Library.Data.DbContext
         public DbSet<AuthorModel> Authors { get; set; }
         public DbSet<Book_AuthorModel> Books_Authors { get; set; }
         public DbSet<ReaderModel> Readers { get; set; }
+      // public DbSet<BookModelWithAuthorAndCategoryView> BookModelWithAuthorAndCategory { get; set; }
     }
 }

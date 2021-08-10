@@ -11,7 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-
+using Library1.Interface;
+using Library1.Service;
 
 namespace Library1
 {
@@ -36,6 +37,8 @@ namespace Library1
             services.Configure<MySqlConfiguration>(Configuration.GetSection("MySQLConnectionStrings"));
             services.AddDbContext<LibraryDbContext>();
             services.AddAutoMapper(this.GetType().Assembly);
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IReaderService, ReaderService>();
 
 
             //services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
