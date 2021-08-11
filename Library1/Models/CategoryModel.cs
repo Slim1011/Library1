@@ -14,7 +14,7 @@ namespace Library1.Models
         public string Category { get; set; }
         public ICollection<Book_CategoryModel> Books_CategoriesModel { get; set; }
 
-       // public ICollection<BookModel> Books { get; set; }
+       
     }
     
 }

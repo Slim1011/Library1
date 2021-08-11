@@ -22,14 +22,5 @@ namespace Library1.Service
         public List<string> AuthorNames { get; set; }
         public List<string> CategoryNames { get; set; }
     }
-    //public class AuthorView
-    //{
-
-    //    public string Author { get; set; }
-    //}
-    //public class CategoryView
-    //{
-
-    //    public string Category { get; set; }
-    //}
+   
 }
