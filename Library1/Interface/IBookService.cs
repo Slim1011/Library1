@@ -11,6 +11,8 @@ namespace Library1.Interface
     {
         BookModelWithAuthorAndCategoryView GetBookByIdWithAuthorAndCategory(int bookId);
         List<BookModelWithAuthorAndCategoryView> GetBooksWithAuthorAndCategory();
+        List<BookModelWithAuthorAndCategoryView> NewGetBooksWithAuthorAndCategory();
+        BookModelWithAuthorAndCategoryView NewGetBookByIdWithAuthorAndCategory(int bookId);
 
     }
 }

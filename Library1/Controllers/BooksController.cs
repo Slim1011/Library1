@@ -1,15 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Library1.Models;
-using Library.Models;
+﻿using AutoMapper;
 using Library.Data.DbContext;
-using AutoMapper;
-using Library1.Service;
-using Microsoft.EntityFrameworkCore;
+using Library.Models;
 using Library1.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -34,7 +27,7 @@ namespace Library.Controllers
         [HttpGet]
         public IActionResult GetBooks()
         {
-            var books = _bookService.GetBooksWithAuthorAndCategory();
+            var books = _bookService.NewGetBooksWithAuthorAndCategory();
             //var bookModels = _mapper.Map<BookModelView>(books);
             if (books.Count == 0)
             {
@@ -48,7 +41,7 @@ namespace Library.Controllers
         public IActionResult GetBookById(int id)
         {
            
-            var book = _bookService.GetBookByIdWithAuthorAndCategory(id);
+            var book = _bookService.NewGetBookByIdWithAuthorAndCategory(id);
 
             if (book == null)
             {

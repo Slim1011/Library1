@@ -40,6 +40,8 @@ namespace Library1
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IReaderService, ReaderService>();
 
+            services.AddAutoMapper(typeof(MappingProfiles));
+
 
             //services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
             // services.AddScoped<DbContext, LibraryDbContext>();
