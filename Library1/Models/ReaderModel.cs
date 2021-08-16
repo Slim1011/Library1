@@ -38,9 +38,10 @@ namespace Library.Models
         [Required]
         [RegularExpression(@"^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$")]
         public string Email { get; set; }
-      
         public List<BookAuthorCategoryVM> Books { get; set; }
-        
+
+        //public List<string> BookAuthors { get; set; }
+        //public List<string> BookCategories { get; set; }
 
     }
     public class BookAuthorCategoryVM

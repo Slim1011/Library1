@@ -12,8 +12,8 @@ namespace Library1.Models
         [Key]
         public int Id { get; set; }
         public string Author { get; set; }
-        public ICollection<Book_AuthorModel> Books_AuthorsModel { get; set; }
-        //public ICollection<BookModel> Books { get; set; }
+        public ICollection<BookAuthorModel> Books { get; set; }
+       
     }
  
 }

@@ -22,25 +22,25 @@ namespace Library.Data.DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book_CategoryModel>()
-                .HasOne(b => b.BookModel)
-                .WithMany(bc => bc.Books_CategoriesModel)
+            modelBuilder.Entity<BookCategoryModel>()
+                .HasOne(b => b.Book)
+                .WithMany(bc => bc.Categories)
                 .HasForeignKey(bi => bi.BookId);
 
-            modelBuilder.Entity<Book_CategoryModel>()
-                .HasOne(c => c.CategoryModel)
-                .WithMany(bc => bc.Books_CategoriesModel)
+            modelBuilder.Entity<BookCategoryModel>()
+                .HasOne(c => c.Category)
+                .WithMany(bc => bc.Books)
                 .HasForeignKey(ci => ci.CategoryId);
 
 
-            modelBuilder.Entity<Book_AuthorModel>()
-               .HasOne(b => b.BookModel)
-               .WithMany(ba => ba.Books_AuthorsModel)
+            modelBuilder.Entity<BookAuthorModel>()
+               .HasOne(b => b.Book)
+               .WithMany(ba => ba.Authors)
                .HasForeignKey(bi => bi.BookId);
 
-            modelBuilder.Entity<Book_AuthorModel>()
-               .HasOne(a => a.AuthorModel)
-               .WithMany(ba => ba.Books_AuthorsModel)
+            modelBuilder.Entity<BookAuthorModel>()
+               .HasOne(a => a.Author)
+               .WithMany(ba => ba.Books)
                .HasForeignKey(ai => ai.AuthorId);
         }
 
@@ -48,9 +48,9 @@ namespace Library.Data.DbContext
 
         public DbSet<BookModel> Books { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
-        public DbSet<Book_CategoryModel> Books_Categories { get; set; }
+        public DbSet<BookCategoryModel> Books_Categories { get; set; }
         public DbSet<AuthorModel> Authors { get; set; }
-        public DbSet<Book_AuthorModel> Books_Authors { get; set; }
+        public DbSet<BookAuthorModel> Books_Authors { get; set; }
         public DbSet<ReaderModel> Readers { get; set; }
       // public DbSet<BookModelWithAuthorAndCategoryView> BookModelWithAuthorAndCategory { get; set; }
     }

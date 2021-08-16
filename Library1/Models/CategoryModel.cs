@@ -12,7 +12,7 @@ namespace Library1.Models
         [Key]
         public int Id { get; set; }
         public string Category { get; set; }
-        public ICollection<Book_CategoryModel> Books_CategoriesModel { get; set; }
+        public ICollection<BookCategoryModel> Books { get; set; }
 
        
     }

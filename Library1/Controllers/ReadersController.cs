@@ -1,6 +1,7 @@
 ﻿using Library.Data.DbContext;
 using Library.Models;
 using Library1.Interface;
+using Library1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace Library.Controllers
     public class ReadersController : ControllerBase
     {
         private LibraryDbContext _readersDbContext;
-        private IReaderService _readerService;
-        public ReadersController(LibraryDbContext readersDbContext, IReaderService readerservice)
+        private IReadersService _readerService;
+        public ReadersController(LibraryDbContext readersDbContext, IReadersService readerservice)
         {
             _readersDbContext = readersDbContext;
             _readerService = readerservice;
@@ -25,10 +26,10 @@ namespace Library.Controllers
 
         public IActionResult GetReaders()
         {
-            var readers = _readersDbContext.Readers.Include(r => r.Books).ToList();
+            var readers = _readerService.GetReardersWithBooksNew();
             if (readers == null)
             {
-                return NotFound("No records found");
+                throw new ClientException("No records found");
             }
             return Ok(readers);
         }
@@ -38,10 +39,10 @@ namespace Library.Controllers
         [HttpGet("{id}")]
         public IActionResult GetReaderById(int id)
         {
-            var reader = _readerService.GetReaderWithBookById(id);
+            var reader = _readerService.GetRearderWithBooksByIdNew(id);
             if (reader == null)
             {
-                return NotFound("No records found agains this id");
+                throw new ClientException("No records found agains this id");
             }
             return Ok(reader);
         }
@@ -62,7 +63,7 @@ namespace Library.Controllers
             var reader = _readersDbContext.Readers.Find(id);
             if (reader == null)
             {
-                return NotFound("No records found agains this id");
+                throw new ClientException("No records found agains this id");
             }
             reader.Name = readerModel.Name;
             reader.Phone = readerModel.Phone;
@@ -78,7 +79,7 @@ namespace Library.Controllers
             var reader = _readersDbContext.Readers.Find(id);
             if (reader == null)
             {
-                return NotFound("Reader not found");
+                throw new ClientException("Reader not found");
             }
             _readersDbContext.Readers.Remove(reader);
             _readersDbContext.SaveChanges();

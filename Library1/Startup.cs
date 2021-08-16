@@ -37,15 +37,12 @@ namespace Library1
             services.Configure<MySqlConfiguration>(Configuration.GetSection("MySQLConnectionStrings"));
             services.AddDbContext<LibraryDbContext>();
             services.AddAutoMapper(this.GetType().Assembly);
-            services.AddScoped<IBookService, BookService>();
-            services.AddScoped<IReaderService, ReaderService>();
+            services.AddScoped<IBooksService, BooksService>();
+            services.AddScoped<IReadersService, ReadersService>();
 
             services.AddAutoMapper(typeof(MappingProfiles));
 
 
-            //services.AddDbContext<LibraryDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("Default")));
-            // services.AddScoped<DbContext, LibraryDbContext>();
-            // services.AddScoped<IStudentService, StudentService>();
 
         }
 

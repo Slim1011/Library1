@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library1.Interface
 {
-    public interface IBookService
+    public interface IBooksService
     {
         BookModelWithAuthorAndCategoryView GetBookByIdWithAuthorAndCategory(int bookId);
         List<BookModelWithAuthorAndCategoryView> GetBooksWithAuthorAndCategory();

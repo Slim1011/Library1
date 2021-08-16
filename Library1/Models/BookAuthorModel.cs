@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Library1.Models
 {
-    public class Book_AuthorModel
+    public class BookAuthorModel
     {
         public int Id { get; set; }
 
         public int BookId { get; set; }
-        public BookModel BookModel { get; set; }
+        public BookModel Book { get; set; }
 
         public int AuthorId { get; set; }
-        public AuthorModel AuthorModel { get; set; }
+        public AuthorModel Author { get; set; }
     }
 }

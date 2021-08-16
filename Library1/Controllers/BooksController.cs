@@ -2,7 +2,10 @@
 using Library.Data.DbContext;
 using Library.Models;
 using Library1.Interface;
+using Library1.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,11 +16,11 @@ namespace Library.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private IBookService _bookService;
+        private IBooksService _bookService;
         private LibraryDbContext _booksDbContext ;
         private readonly IMapper _mapper;
 
-        public BooksController(LibraryDbContext booksDbContext, IMapper mapper, IBookService bookService)
+        public BooksController(LibraryDbContext booksDbContext, IMapper mapper, IBooksService bookService)
         {
             _bookService = bookService;
             _booksDbContext = booksDbContext;
@@ -28,10 +31,10 @@ namespace Library.Controllers
         public IActionResult GetBooks()
         {
             var books = _bookService.NewGetBooksWithAuthorAndCategory();
-            //var bookModels = _mapper.Map<BookModelView>(books);
+            
             if (books.Count == 0)
             {
-                return NotFound("No records found");
+                throw new ClientException("No records found");
             }
             return Ok(books);
         }
@@ -45,8 +48,11 @@ namespace Library.Controllers
 
             if (book == null)
             {
-                return NotFound("No records found agains this id");
+                throw new ClientException("No records found against this id");
+               
+
             }
+            
             return Ok(book);
         }
 
@@ -66,7 +72,7 @@ namespace Library.Controllers
            var book = _booksDbContext.Books.Find(id);
             if (book == null)
             {
-                return NotFound("No records found agains this id");
+                throw new ClientException("No records found agains this id");
             }
             book.Title = bookModel.Title;
 
@@ -82,7 +88,7 @@ namespace Library.Controllers
             var book = _booksDbContext.Books.Find(id);
             if (book == null)
             {
-                return NotFound("Book not found");
+                throw new ClientException("Book not found");
             }
             _booksDbContext.Books.Remove(book);
             _booksDbContext.SaveChanges();
