@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using Library.Data.DbContext;
-using Library.Models;
-using Library1.Interface;
-using Library1.Models;
-using Microsoft.EntityFrameworkCore;
-using MySqlX.XDevAPI.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+using Library.Data.DbContext;
+using Library1.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library1.Service
 {
@@ -23,7 +19,7 @@ namespace Library1.Service
             _mapper = mapper;
         }
 
-       
+
         public BookModelWithAuthorAndCategoryView GetBookByIdWithAuthorAndCategory(int bookId)
         {
             var bookWithAuthorsAndCategories = _libraryDbContext.Books.Where(n => n.Id == bookId).Select(book => new BookModelWithAuthorAndCategoryView()
@@ -32,7 +28,7 @@ namespace Library1.Service
                 Title = book.Title,
                 AuthorNames = book.Authors.Select(n => n.Author.Author).ToList(),
                 CategoryNames = book.Categories.Select(n => n.Category.Category).ToList()
-                
+
             }).FirstOrDefault();
             return bookWithAuthorsAndCategories;
         }
@@ -53,18 +49,22 @@ namespace Library1.Service
         }
 
         public BookModelWithAuthorAndCategoryView NewGetBookByIdWithAuthorAndCategory(int bookId)
-        
+
         {
             var bookWithAuthorsAndCategories = _libraryDbContext.Books.Where(n => n.Id == bookId).Include(b => b.Authors).ThenInclude(a => a.Author).Include(b => b.Categories).ThenInclude(a => a.Category).FirstOrDefault();
-            
+
             return _mapper.Map<BookModelWithAuthorAndCategoryView>(bookWithAuthorsAndCategories);
         }
 
         public List<BookModelWithAuthorAndCategoryView> NewGetBooksWithAuthorAndCategory()
         {
-            var result = _libraryDbContext.Books.Include(b => b.Authors).ThenInclude(a=>a.Author).Include(b => b.Categories).ThenInclude(a => a.Category).ToList();
-            
+            var result = _libraryDbContext.Books.Include(b => b.Authors).ThenInclude(a => a.Author).Include(b => b.Categories).ThenInclude(a => a.Category).ToList();
+
             return _mapper.Map<List<BookModelWithAuthorAndCategoryView>>(result);
+            Console.WriteLine("123");
+            Console.WriteLine("223")
+
+                123123
         }
     }
 
