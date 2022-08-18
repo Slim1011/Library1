@@ -51,7 +51,7 @@ namespace Library1.Service
             var readersWithBooks = _libraryDbContext.Readers.Include(b => b.Books).ThenInclude(b => b.Authors).ThenInclude(a => a.Author)
                 .Include(c => c.Books).ThenInclude(c => c.Categories).ThenInclude(c => c.Category).ToList();
 
-            return _mapper.Map<List<ReaderWithBooksModel>>(readersWithBooks);
+            return _mapper.Map<List<ReaderWithBooksModel>>(readersWithBooks)
 
 
         }
