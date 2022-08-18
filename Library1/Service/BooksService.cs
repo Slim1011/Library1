@@ -60,7 +60,6 @@ namespace Library1.Service
             var result = _libraryDbContext.Books.Include(b => b.Authors).ThenInclude(a => a.Author).Include(b => b.Categories).ThenInclude(a => a.Category).ToList();
 
             return _mapper.Map<List<BookModelWithAuthorAndCategoryView>>(result);
-            System.Console.WriteLine("123");
 
 
         }
