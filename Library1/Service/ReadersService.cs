@@ -52,7 +52,7 @@ namespace Library1.Service
                 .Include(c => c.Books).ThenInclude(c => c.Categories).ThenInclude(c => c.Category).ToList();
 
             return _mapper.Map<List<ReaderWithBooksModel>>(readersWithBooks);
-            System.Console.WriteLine("12");
+            System.Console.WriteLine("12")
         }
 
     }
