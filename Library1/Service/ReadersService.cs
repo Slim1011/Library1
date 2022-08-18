@@ -1,12 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Library.Data.DbContext;
 using Library.Models;
 using Library1.Interface;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Library1.Service
 {
@@ -15,7 +13,7 @@ namespace Library1.Service
         private LibraryDbContext _libraryDbContext;
         private IMapper _mapper;
 
-        public ReadersService(LibraryDbContext libraryDbContext, IMapper mapper )
+        public ReadersService(LibraryDbContext libraryDbContext, IMapper mapper)
         {
             _libraryDbContext = libraryDbContext;
             _mapper = mapper;
@@ -42,10 +40,10 @@ namespace Library1.Service
         //}
         public ReaderWithBooksModel GetRearderWithBooksByIdNew(int readerId)
         {
-            var readerWithBooks = _libraryDbContext.Readers.Where(n => n.Id == readerId).Include(b => b.Books).ThenInclude(b => b.Authors).ThenInclude(a => a.Author)
-                .Include(c => c.Books).ThenInclude(c => c.Categories).ThenInclude(c => c.Category).FirstOrDefault();
-            
-            return _mapper.Map< ReaderWithBooksModel > (readerWithBooks);
+            var readerWithBooks = _libraryDbContext.Readers.Where(n => n.Id == readerId).Include(b => b.Books).ThenInclude(b => b.Authors)
+                .ThenInclude(a => a.Author).Include(c => c.Books).ThenInclude(c => c.Categories).ThenInclude(c => c.Category).FirstOrDefault();
+
+            return _mapper.Map<ReaderWithBooksModel>(readerWithBooks);
         }
 
         public List<ReaderWithBooksModel> GetReardersWithBooksNew()
@@ -54,6 +52,7 @@ namespace Library1.Service
                 .Include(c => c.Books).ThenInclude(c => c.Categories).ThenInclude(c => c.Category).ToList();
 
             return _mapper.Map<List<ReaderWithBooksModel>>(readersWithBooks);
+            System.Console.WriteLine("12");
         }
 
     }
